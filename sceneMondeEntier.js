@@ -1,6 +1,8 @@
 class SceneMondeEntier extends Phaser.scene {
     constructor(){
-        super("MondeEntier")
+        super("SceneMondeEntier")
+        this.player;
+        this.controller = false;
         
     }
     init(data){
@@ -23,8 +25,7 @@ class SceneMondeEntier extends Phaser.scene {
     
 
     create(){
-    var player;
-    var controller = false;
+    
         // chargement de la carte
         const carteDuNiveau = this.add.tilemap("carte");
 
@@ -41,8 +42,8 @@ class SceneMondeEntier extends Phaser.scene {
         //calque_plateformes.setCollisionByProperty({ estSolide: true }); 
 
         //joueur :
-        player = this.physics.add.sprite(5023, 7066, 'perso');
-        /*player.setCollideWorldBounds(true);
+        this.player = this.physics.add.sprite(5023, 7066, 'perso');
+        /*this.player.setCollideWorldBounds(true);
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('perso', {start:0,end:3}),
@@ -65,31 +66,33 @@ class SceneMondeEntier extends Phaser.scene {
         //  ajout du champs de la caméra de taille identique à celle du monde
         this.cameras.main.setBounds(0, 0, 12800, 12800);
         // ancrage de la caméra sur le joueur
-        this.cameras.main.startFollow(player);
+        this.cameras.main.startFollow(this.player);
         this.cameras.main.setZoom(0.8);
       };
 
     update(){
-      if (cursors.left.isDown || controller.left){ //si la touche gauche est appuyée
-          player.setVelocityX(-200); //alors vitesse négative en X
-          player.anims.play('left', true); //et animation => gauche
+      if (cursors.left.isDown || this.controller.left){ //si la touche gauche est appuyée
+        this.player.setVelocityX(-200); //alors vitesse négative en X
+        this.player.anims.play('left', true); //et animation => gauche
         }
-      else if (cursors.right.isDown || controller.right){ //sinon si la touche droite est appuyée
-          player.setVelocityX(200); //alors vitesse positive en X
-          player.anims.play('right', true); //et animation => droite
+      else if (cursors.right.isDown || this.controller.right){ //sinon si la touche droite est appuyée
+        this.player.setVelocityX(200); //alors vitesse positive en X
+        this.player.anims.play('right', true); //et animation => droite
         }
-      else if (cursors.up.isDown ||  controller.up ) {
-        player.setVelocityY(-200);
-        player.anims.play('left', true);
+      else if (cursors.up.isDown ||  this.controller.up ) {
+        this.player.setVelocityY(-200);
+        this.player.anims.play('left', true);
       }
 
-      else if(cursors.down.isDown|| controller.down){
-        player.setVelocityY(200);
-        player.anims.play('right', true);
+      else if(cursors.down.isDown|| this.controller.down){
+        this.player.setVelocityY(200);
+        this.player.anims.play('right', true);
       }
       else {
-        player.setVelocityY(0);
-        player.setVelocityX(0);
+        this.player.setVelocityY(0);
+        this.player.setVelocityX(0);
       }
     };
+
+    
 }
