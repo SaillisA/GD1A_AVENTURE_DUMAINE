@@ -1,4 +1,4 @@
-class SceneMondeEntier extends Phaser.scene {
+class SceneMondeEntier extends Phaser.Scene {
     constructor(){
         super("SceneMondeEntier")
         this.player;
