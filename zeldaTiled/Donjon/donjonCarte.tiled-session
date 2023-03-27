@@ -1,0 +1,40 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "donjonCarteTiled.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "donjonCarteTiled.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 1881.8181818181818,
+                "y": 1772.7272727272727
+            }
+        },
+        "donjonCarteTiled.tmx#tileset_donjon": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/Donjon",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 50,
+    "openFiles": [
+        "donjonCarteTiled.tmx"
+    ],
+    "project": "donjonCarte.tiled-project",
+    "recentFiles": [
+        "donjonCarteTiled.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}

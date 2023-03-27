@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "magasinCarteTiled.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "fileStates": {
@@ -43,7 +43,6 @@
     "map.tileWidth": 64,
     "map.width": 40,
     "openFiles": [
-        "magasinCarteTiled.tmx"
     ],
     "project": "carteShop.tiled-project",
     "recentFiles": [
