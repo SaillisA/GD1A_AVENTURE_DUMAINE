@@ -29,7 +29,7 @@ class SceneDonjon extends Phaser.Scene {
         this.carteDuNiveau = this.add.tilemap("cartedede");
 
         // chargement du jeu de tuiles
-        this.tileset = this.carteDuNiveau.addTilesetImage("tileset_donjonEXPORTE","Phaser_tuilesdejeuDede");
+        this.tileset = this.carteDuNiveau.addTilesetImage("tileset_donjon","Phaser_tuilesdejeuDede");
 
         //les caaaaalques (oskour)
         this.calqueSol = this.carteDuNiveau.createLayer("sol",this.tileset);
@@ -42,7 +42,7 @@ class SceneDonjon extends Phaser.Scene {
         this.calqueMurs.setCollisionByProperty({ estSolide: true }); 
 
         //joueur :
-        this.player = this.physics.add.sprite(1630, 2146, 'perso');
+        this.player = this.physics.add.sprite(928, 1188, 'perso');
         /*this.player.setCollideWorldBounds(true);
         this.anims.create({
             key: 'left',
@@ -62,9 +62,9 @@ class SceneDonjon extends Phaser.Scene {
             repeat: -1
         });*/
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.physics.world.setBounds(0, 0, 3200, 3200);
+        this.physics.world.setBounds(0, 0, 1856, 1216);
         //  ajout du champs de la caméra de taille identique à celle du monde
-        this.cameras.main.setBounds(0, 0, 3200, 3200);
+        this.cameras.main.setBounds(0, 0, 1856, 1216);
         // ancrage de la caméra sur le joueur
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setZoom(0.8);
