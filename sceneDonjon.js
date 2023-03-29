@@ -32,17 +32,18 @@ class SceneDonjon extends Phaser.Scene {
         this.tileset = this.carteDuNiveau.addTilesetImage("tileset_donjon","Phaser_tuilesdejeuDede");
 
         //les caaaaalques (oskour)
-        this.calqueSol = this.carteDuNiveau.createLayer("sol",this.tileset);
-        this.calqueMurs = this.carteDuNiveau.createLayer("murs",this.tileset);
+        this.calqueSolDonjon = this.carteDuNiveau.createLayer("sol",this.tileset);
+        this.calqueMursDonjon = this.carteDuNiveau.createLayer("murs",this.tileset);
 
 
         // définition des tuiles de plateformes qui sont solides
         // utilisation de la propriété estSolide
-
-        this.calqueMurs.setCollisionByProperty({ estSolide: true }); 
-
+        this.physics.add.collider(this.player,this.calqueMursDonjon);
+        this.calqueMursDonjon.setCollisionByProperty({ estSolide: true }); 
+        
         //joueur :
-        this.player = this.physics.add.sprite(928, 1188, 'perso');
+        
+        this.player = this.physics.add.sprite(928, 1108, 'perso');
         /*this.player.setCollideWorldBounds(true);
         this.anims.create({
             key: 'left',
@@ -61,6 +62,7 @@ class SceneDonjon extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });*/
+
         this.cursors = this.input.keyboard.createCursorKeys();
         this.physics.world.setBounds(0, 0, 1856, 1216);
         //  ajout du champs de la caméra de taille identique à celle du monde

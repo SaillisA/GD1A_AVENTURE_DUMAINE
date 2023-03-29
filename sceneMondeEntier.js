@@ -35,16 +35,16 @@ class SceneMondeEntier extends Phaser.Scene {
         this.tileset = this.carteDuNiveau.addTilesetImage("Tileset","Phaser_tuilesdejeu");
 
         //les caaaaalques (oskour)
-        this.calqueSol = this.carteDuNiveau.createLayer("sol",this.tileset);
+        this.calqueSolMondo = this.carteDuNiveau.createLayer("sol",this.tileset);
         this.calqueHouseVivi = this.carteDuNiveau.createLayer("maisonsVillage",this.tileset);
         this.calqueBat = this.carteDuNiveau.createLayer("bateau",this.tileset);
         this.calqueHab = this.carteDuNiveau.createLayer("habitants",this.tileset);
-        this.calqueMurs = this.carteDuNiveau.createLayer("murs",this.tileset);
+        this.calqueMursMondo = this.carteDuNiveau.createLayer("murs",this.tileset);
 
 
         // définition des tuiles de plateformes qui sont solides
         // utilisation de la propriété estSolide
-
+        this.calqueMursMondo.setCollisionByProperty({ sosoSolide: true });
         //calque_plateformes.setCollisionByProperty({ estSolide: true }); 
 
         //joueur :
