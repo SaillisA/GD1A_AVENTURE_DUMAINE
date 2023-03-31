@@ -87,31 +87,32 @@ class SceneMondeEntier extends Phaser.Scene {
       };
 
     update(){
-      if (this.cursors.left.isDown || this.controller.left){ //si la touche gauche est appuyée
+      if (this.cursors.left.isDown || this.controller.left) { //si la touche gauche est appuyée
         this.player.setVelocityX(-250); //alors vitesse négative en X
         this.player.anims.play('left', true); //et animation => gauche
-        }
-      else if (this.cursors.right.isDown || this.controller.right){ //sinon si la touche droite est appuyée
+      }
+      else if (this.cursors.right.isDown || this.controller.right) { //sinon si la touche droite est appuyée
         this.player.setVelocityX(250); //alors vitesse positive en X
         this.player.anims.play('right', true); //et animation => droite
-        }
-      else if (this.cursors.up.isDown ||  this.controller.up ) {
+      }
+      else {
+        this.player.setVelocityX(0)
+      }
+      if (this.cursors.up.isDown || this.controller.up) {
         this.player.setVelocityY(-250);
         this.player.anims.play('left', true);
       }
-
-      else if(this.cursors.down.isDown|| this.controller.down){
+      else if (this.cursors.down.isDown || this.controller.down) {
         this.player.setVelocityY(250);
         this.player.anims.play('right', true);
       }
       else {
         this.player.setVelocityY(0);
-        this.player.setVelocityX(0);
-      }
-    };
+      };
+    }
 
     teleportationDonjon(){
       this.scene.start('SceneDonjon')
 
-    }
+    };
 }
