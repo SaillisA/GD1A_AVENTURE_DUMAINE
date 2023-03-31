@@ -60,8 +60,18 @@ class SceneBoutique extends Phaser.Scene {
       this.cameras.main.startFollow(this.player);
       this.cameras.main.setZoom(0.8);
       this.physics.add.collider(this.player,this.calqueMursBoutique);  
-  
-      };
+
+
+      //Porte sortie du donjon
+      this.popoSortieBoutique = this.physics.add.group({immovable : true ,allowGravity : false});
+
+      this.calque_porteSortieBoutique = this.carteDuNiveau.getObjectLayer("sortieBoutique");
+      this.calque_porteSortieBoutique.objects.forEach(calque_porteSortieBoutique => {
+        this.inutile = this.popoSortieBoutique.create(calque_porteSortieBoutique.x+64,calque_porteSortieBoutique.y+32,"transparent"); 
+      });
+      this.physics.add.overlap(this.player,this.popoSortieBoutique,this.teleportationSortieBoutique,null,this);
+    
+    };
   
   
   

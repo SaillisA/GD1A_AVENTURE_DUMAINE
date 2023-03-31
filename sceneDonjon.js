@@ -15,24 +15,26 @@ class SceneDonjon extends Phaser.Scene {
     this.load.image("Phaser_tuilesdejeuDede","assets/tileset_donjon.png");
     this.load.tilemapTiledJSON("cartedede","assets/carteDonjon.json");
     this.load.image("transparent","assets/invisible.png");
+    this.load.image("boutonStyle","assets/boubou.png");
   }
-  //le club des variables
+
   
   create(){
     // chargement de la carte
     this.carteDuNiveau = this.add.tilemap("cartedede");
+
     // chargement du jeu de tuiles
     this.tileset = this.carteDuNiveau.addTilesetImage("tileset_donjon","Phaser_tuilesdejeuDede");
+
     //les caaaaalques (oskour)
     this.calqueSolDonjon = this.carteDuNiveau.createLayer("sol",this.tileset);
     this.calqueMursDonjon = this.carteDuNiveau.createLayer("murs",this.tileset);
+
     // définition des tuiles de plateformes qui sont solides
     // utilisation de la propriété estSolide
-    
     this.calqueMursDonjon.setCollisionByProperty({ estSolide: true }); 
     
     //joueur :
-    
     this.player = this.physics.add.sprite(928, 1050, 'perso');
     /*this.player.setCollideWorldBounds(true);
     this.anims.create({
@@ -52,14 +54,45 @@ class SceneDonjon extends Phaser.Scene {
         frameRate: 10,
         repeat: -1
     });*/
+
     this.cursors = this.input.keyboard.createCursorKeys();
     this.physics.world.setBounds(0, 0, 1856, 1216);
+
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 1856, 1216);
+
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setZoom(0.8);
+
+    //coliders
     this.physics.add.collider(this.player,this.calqueMursDonjon);
+
+    //LES MURS QUI BOUGENT
+    //Mur 1murQuiBouge
+    this.mumu1 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_mur1 = this.carteDuNiveau.getObjectLayer("murQuiBouge1");
+    this.calque_mur1.objects.forEach(calque_mur1 => {
+      this.inutile = this.mumu1.create(calque_mur1.x+96,calque_mur1.y+32,"transparent"); 
+    });
+    this.collisionmur1 = this.physics.add.collider(this.player,this.mumu1,null,null,this);
+    
+
+
+    //LES BOUTONS
+    //Bouton salle1
+    this.bobo1 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_bouton1 = this.carteDuNiveau.getObjectLayer("bouton1");
+    this.calque_bouton1.objects.forEach(calque_bouton1 => {
+      this.inutile = this.bobo1.create(calque_bouton1.x+32,calque_bouton1.y+32,"boutonStyle"); 
+    });
+    this.physics.add.overlap(this.player,this.bobo1,this.pressionbouton1,null,this);
+
+    
+    
+
 
     //Porte sortie du donjon
     this.popoSortieDonjon = this.physics.add.group({immovable : true ,allowGravity : false});
@@ -101,6 +134,10 @@ class SceneDonjon extends Phaser.Scene {
   };
   teleportationSortieDonjon(){
     this.scene.start('SceneMondeEntier')
+  }
+  pressionbouton1(player){
+    this.physics.world.removeCollider(this.collisionmur1)
+    
   }
 
 }

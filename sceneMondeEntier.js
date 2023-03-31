@@ -50,7 +50,7 @@ class SceneMondeEntier extends Phaser.Scene {
         //calque_plateformes.setCollisionByProperty({ estSolide: true }); 
 
         //joueur :
-        this.player = this.physics.add.sprite(2113, 11520, 'perso');
+        this.player = this.physics.add.sprite(2252, 11617, 'perso');
         /*this.player.setCollideWorldBounds(true);
         this.anims.create({
             key: 'left',
@@ -90,6 +90,15 @@ class SceneMondeEntier extends Phaser.Scene {
         });
         this.physics.add.overlap(this.player,this.popoDonjon,this.teleportationDonjon,null,this);
 
+        //Porte accès boutique
+        this.popoBoutique = this.physics.add.group({immovable : true ,allowGravity : false});
+        
+        this.calque_porteBoutique = this.carteDuNiveau.getObjectLayer("entreShop");
+        this.calque_porteBoutique.objects.forEach(calque_porteBoutique => {
+          this.inutile = this.popoBoutique.create(calque_porteBoutique.x+64,calque_porteBoutique.y+32,"transparent"); 
+        });
+        this.physics.add.overlap(this.player,this.popoBoutique,this.teleportationBoutique,null,this);
+
 
       };
 
@@ -122,8 +131,10 @@ class SceneMondeEntier extends Phaser.Scene {
       this.scene.start('SceneDonjon')
 
     };
-
+    teleportationBoutique(){
+      this.scene.start('SceneBoutique')
+    };
     recuperationArgent(){
       this.argentTexte.setText('Perles: ' + argent); //met à jour l’affichage de l'argent
-    }
+    };
 }
