@@ -16,6 +16,9 @@ class SceneDonjon extends Phaser.Scene {
     this.load.tilemapTiledJSON("cartedede","assets/carteDonjon.json");
     this.load.image("transparent","assets/invisible.png");
     this.load.image("boutonStyle","assets/boubou.png");
+    this.load.image("murCote","assets/murDJCote.png")
+    this.load.image("murFace","assets/murDJFace.png")
+
   }
 
   
@@ -74,9 +77,17 @@ class SceneDonjon extends Phaser.Scene {
 
     this.calque_mur1 = this.carteDuNiveau.getObjectLayer("murQuiBouge1");
     this.calque_mur1.objects.forEach(calque_mur1 => {
-      this.inutile = this.mumu1.create(calque_mur1.x+96,calque_mur1.y+32,"transparent"); 
+      this.inutile = this.mumu1.create(calque_mur1.x+32,calque_mur1.y+64,"murCote"); 
     });
     this.collisionmur1 = this.physics.add.collider(this.player,this.mumu1,null,null,this);
+    //Mur 2murQuiBouge
+    this.mumu2 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_mur2 = this.carteDuNiveau.getObjectLayer("murQuiBouge2");
+    this.calque_mur2.objects.forEach(calque_mur2 => {
+      this.inutile = this.mumu2.create(calque_mur2.x+64,calque_mur2.y+32,"murFace"); 
+    });
+    this.collisionmur2 = this.physics.add.collider(this.player,this.mumu2,null,null,this);
     
 
 
@@ -89,7 +100,14 @@ class SceneDonjon extends Phaser.Scene {
       this.inutile = this.bobo1.create(calque_bouton1.x+32,calque_bouton1.y+32,"boutonStyle"); 
     });
     this.physics.add.overlap(this.player,this.bobo1,this.pressionbouton1,null,this);
+    //Bouton salle2
+    this.bobo2 = this.physics.add.group({immovable : true ,allowGravity : false});
 
+    this.calque_bouton2 = this.carteDuNiveau.getObjectLayer("bouton2");
+    this.calque_bouton2.objects.forEach(calque_bouton2 => {
+      this.inutile = this.bobo2.create(calque_bouton2.x+32,calque_bouton2.y+32,"boutonStyle"); 
+    });
+    this.physics.add.overlap(this.player,this.bobo2,this.pressionbouton2,null,this);
     
     
 
@@ -137,7 +155,12 @@ class SceneDonjon extends Phaser.Scene {
   }
   pressionbouton1(player){
     this.physics.world.removeCollider(this.collisionmur1)
-    
+    this.mumu1.setVisible(false);
+
+  }
+  pressionbouton2(player){
+    this.physics.world.removeCollider(this.collisionmur2)
+    this.mumu2.setVisible(false);
   }
 
 }
