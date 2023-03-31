@@ -33,7 +33,7 @@ class SceneDonjon extends Phaser.Scene {
     
     //joueur :
     
-    this.player = this.physics.add.sprite(928, 1108, 'perso');
+    this.player = this.physics.add.sprite(928, 1050, 'perso');
     /*this.player.setCollideWorldBounds(true);
     this.anims.create({
         key: 'left',
@@ -60,7 +60,21 @@ class SceneDonjon extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setZoom(0.8);
     this.physics.add.collider(this.player,this.calqueMursDonjon);
+
+    //Porte sortie du donjon
+    this.popoSortieDonjon = this.physics.add.group({immovable : true ,allowGravity : false});
+        
+    this.calque_porteSortieDonjon = this.carteDuNiveau.getObjectLayer("porteSortie");
+    this.calque_porteSortieDonjon.objects.forEach(calque_porteSortieDonjon => {
+      this.inutile = this.popoSortieDonjon.create(calque_porteSortieDonjon.x+96,calque_porteSortieDonjon.y+32,"transparent"); 
+    });
+    this.physics.add.overlap(this.player,this.popoSortieDonjon,this.teleportationSortieDonjon,null,this);
+
+
     };
+
+
+
   update(){
     if (this.cursors.left.isDown || this.controller.left) { //si la touche gauche est appuyée
     this.player.setVelocityX(-250); //alors vitesse négative en X
@@ -85,4 +99,8 @@ class SceneDonjon extends Phaser.Scene {
       this.player.setVelocityY(0);
     }
   };
+  teleportationSortieDonjon(){
+    this.scene.start('SceneMondeEntier')
+  }
+
 }

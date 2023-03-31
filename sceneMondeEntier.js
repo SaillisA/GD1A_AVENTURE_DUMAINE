@@ -4,6 +4,8 @@ class SceneMondeEntier extends Phaser.Scene {
         this.player;
         this.controller = false;
         this.tileset;
+        this.argent =0;
+        this.argentTexte;
         
     }
     init(data){
@@ -75,14 +77,19 @@ class SceneMondeEntier extends Phaser.Scene {
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setZoom(0.8);
 
+        this.argentTexte=this.add.text(16,16,'score: 0',{fontSize:'32px',fill:'#000'});
+        //affiche un texte à l’écran, pour le score
+        
 
+        //Porte accès donjon
         this.popoDonjon = this.physics.add.group({immovable : true ,allowGravity : false});
         
         this.calque_porteDonjon = this.carteDuNiveau.getObjectLayer("entreDonjon");
         this.calque_porteDonjon.objects.forEach(calque_porteDonjon => {
-          this.inutile = this.popoDonjon.create(calque_porteDonjon.x,calque_porteDonjon.y,"transparent");
+          this.inutile = this.popoDonjon.create(calque_porteDonjon.x+64,calque_porteDonjon.y+32,"transparent"); 
         });
         this.physics.add.overlap(this.player,this.popoDonjon,this.teleportationDonjon,null,this);
+
 
       };
 
@@ -115,4 +122,8 @@ class SceneMondeEntier extends Phaser.Scene {
       this.scene.start('SceneDonjon')
 
     };
+
+    recuperationArgent(){
+      this.argentTexte.setText('Perles: ' + argent); //met à jour l’affichage de l'argent
+    }
 }
