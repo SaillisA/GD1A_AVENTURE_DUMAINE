@@ -15,7 +15,8 @@ class SceneDonjon extends Phaser.Scene {
     this.load.image("Phaser_tuilesdejeuDede","assets/tileset_donjon.png");
     this.load.tilemapTiledJSON("cartedede","assets/carteDonjon.json");
     this.load.image("transparent","assets/invisible.png");
-    this.load.image("boutonStyle","assets/boubou.png");
+    this.load.image("boutonNormal","assets/boubou.png");
+    this.load.image("boutonPresser","assets/boubouPresser.png");
     this.load.image("murCote","assets/murDJCote.png")
     this.load.image("murFace","assets/murDJFace.png")
 
@@ -97,7 +98,7 @@ class SceneDonjon extends Phaser.Scene {
 
     this.calque_bouton1 = this.carteDuNiveau.getObjectLayer("bouton1");
     this.calque_bouton1.objects.forEach(calque_bouton1 => {
-      this.inutile = this.bobo1.create(calque_bouton1.x+32,calque_bouton1.y+32,"boutonStyle"); 
+      this.inutile = this.bobo1.create(calque_bouton1.x+32,calque_bouton1.y+32,"boutonNormal"); 
     });
     this.physics.add.overlap(this.player,this.bobo1,this.pressionbouton1,null,this);
     //Bouton salle2
@@ -105,7 +106,7 @@ class SceneDonjon extends Phaser.Scene {
 
     this.calque_bouton2 = this.carteDuNiveau.getObjectLayer("bouton2");
     this.calque_bouton2.objects.forEach(calque_bouton2 => {
-      this.inutile = this.bobo2.create(calque_bouton2.x+32,calque_bouton2.y+32,"boutonStyle"); 
+      this.inutile = this.bobo2.create(calque_bouton2.x+32,calque_bouton2.y+32,"boutonNormal"); 
     });
     this.physics.add.overlap(this.player,this.bobo2,this.pressionbouton2,null,this);
     
