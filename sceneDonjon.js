@@ -19,7 +19,7 @@ class SceneDonjon extends Phaser.Scene {
     this.load.image("boutonPresser","assets/boubouPresser.png");
     this.load.image("murCote","assets/murDJCote.png")
     this.load.image("murFace","assets/murDJFace.png")
-
+    this.load.image("solVide","assets/solTrou.png")
   }
 
   
@@ -33,7 +33,7 @@ class SceneDonjon extends Phaser.Scene {
     //les caaaaalques (oskour)
     this.calqueSolDonjon = this.carteDuNiveau.createLayer("sol",this.tileset);
     this.calqueMursDonjon = this.carteDuNiveau.createLayer("murs",this.tileset);
-
+    this.calqueBoutonPresser = this.carteDuNiveau.createLayer("boutons",this.tileset);
     // définition des tuiles de plateformes qui sont solides
     // utilisation de la propriété estSolide
     this.calqueMursDonjon.setCollisionByProperty({ estSolide: true }); 
@@ -91,8 +91,40 @@ class SceneDonjon extends Phaser.Scene {
       this.inutile = this.mumu2.create(calque_mur2.x+64,calque_mur2.y+32,"murFace"); 
     });
     this.collisionmur2 = this.physics.add.collider(this.player,this.mumu2,null,null,this);
-    
+    //Mur 2murQuiBouge
+    this.mumu3 = this.physics.add.group({immovable : true ,allowGravity : false});
 
+    this.calque_mur3 = this.carteDuNiveau.getObjectLayer("murQuiBouge3");
+    this.calque_mur3.objects.forEach(calque_mur3 => {
+      this.inutile = this.mumu3.create(calque_mur3.x+32,calque_mur3.y+64,"murCote"); 
+    });
+    this.collisionmur3 = this.physics.add.collider(this.player,this.mumu3,null,null,this);
+
+    //PONTS
+    //Pont1
+    this.ponpon1 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_pont1 = this.carteDuNiveau.getObjectLayer("pont1");
+    this.calque_pont1.objects.forEach(calque_pont1 => {
+      this.inutile = this.ponpon1.create(calque_pont1.x+64,calque_pont1.y+32,"solVide"); 
+    });
+    this.collisionpont1 = this.physics.add.collider(this.player,this.ponpon1,null,null,this);
+    //Pont2
+    this.ponpon2 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_pont2 = this.carteDuNiveau.getObjectLayer("pont2");
+    this.calque_pont2.objects.forEach(calque_pont2 => {
+      this.inutile = this.ponpon2.create(calque_pont2.x+64,calque_pont2.y+32,"solVide"); 
+    });
+    this.collisionpont2 = this.physics.add.collider(this.player,this.ponpon2,null,null,this);
+    //Pont3
+    this.ponpon3 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_pont3 = this.carteDuNiveau.getObjectLayer("pont3");
+    this.calque_pont3.objects.forEach(calque_pont3 => {
+      this.inutile = this.ponpon3.create(calque_pont3.x+64,calque_pont3.y+32,"solVide"); 
+    });
+    this.collisionpont3 = this.physics.add.collider(this.player,this.ponpon3,null,null,this);
 
     //LES BOUTONS
     //Bouton salle1
@@ -157,13 +189,18 @@ class SceneDonjon extends Phaser.Scene {
     this.scene.start('SceneMondeEntier')
   }
   pressionbouton1(player){
+    this.bobo1.setVisible(false);
     this.physics.world.removeCollider(this.collisionmur1)
     this.mumu1.setVisible(false);
+    
 
   }
   pressionbouton2(player){
+    this.bobo2.setVisible(false);
     this.physics.world.removeCollider(this.collisionmur2)
     this.mumu2.setVisible(false);
+    this.physics.world.removeCollider(this.collisionpont1)
+    this.ponpon1.setVisible(false);
   }
 
 }
