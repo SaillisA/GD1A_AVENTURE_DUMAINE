@@ -40,6 +40,8 @@ class SceneDonjon extends Phaser.Scene {
     
     //joueur :
     this.player = this.physics.add.sprite(928, 1050, 'perso');
+    this.player.setSize(40, 90)
+
     /*this.player.setCollideWorldBounds(true);
     this.anims.create({
         key: 'left',
