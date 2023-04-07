@@ -9,27 +9,30 @@ class SceneMondeEntier extends Phaser.Scene {
         
     }
     init(data){
-
+      this.bulleAirBool = data.bulleAirBool
     }
 
 
 
     preload(){
-        
-        //this.load.spritesheet('perso','assets/perso.png',
-        //{ frameWidth: 22, frameHeight: 32 });
-        this.load.image('perso','assets/sirenes.png');
-        this.load.image("Phaser_tuilesdejeu","assets/Tileset.png");
-        this.load.tilemapTiledJSON("carte","assets/carteNiveau.json");
-        this.load.image("transparent","assets/invisible.png");
-
+      //this.load.spritesheet('perso','assets/perso.png',
+      //{ frameWidth: 22, frameHeight: 32 });
+      this.load.image('perso','assets/sirenes.png');
+      this.load.image("Phaser_tuilesdejeu","assets/Tileset.png");
+      this.load.tilemapTiledJSON("carte","assets/carteNiveau.json");
+      this.load.image("transparent","assets/invisible.png");
+      this.load.image("collierPowerUp","assets/collierBulle.png");
+      this.load.image("bulleImg","assets/bulleAir.png");
     }
 
     //le club des variables
     
 
     create(){
-    
+      this.keyA =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+      this.bulleAirCD = false;
+      this.directionPlayer = "down";
+
         // chargement de la carte
         this.carteDuNiveau = this.add.tilemap("carte");
 
@@ -99,6 +102,9 @@ class SceneMondeEntier extends Phaser.Scene {
         });
         this.physics.add.overlap(this.player,this.popoBoutique,this.teleportationBoutique,null,this);
 
+        //Power Up bulle d'air
+        this.bubulle = this.physics.add.group();
+        this.physics.add.collider(this.bubulle, this.bobo2,this.pressionbouton2,null,this);
 
       };
 
@@ -106,25 +112,45 @@ class SceneMondeEntier extends Phaser.Scene {
       if (this.cursors.left.isDown || this.controller.left) { //si la touche gauche est appuyée
         this.player.setVelocityX(-250); //alors vitesse négative en X
         this.player.anims.play('left', true); //et animation => gauche
-      }
-      else if (this.cursors.right.isDown || this.controller.right) { //sinon si la touche droite est appuyée
-        this.player.setVelocityX(250); //alors vitesse positive en X
-        this.player.anims.play('right', true); //et animation => droite
-      }
-      else {
-        this.player.setVelocityX(0)
-      }
-      if (this.cursors.up.isDown || this.controller.up) {
-        this.player.setVelocityY(-250);
-        this.player.anims.play('left', true);
-      }
-      else if (this.cursors.down.isDown || this.controller.down) {
-        this.player.setVelocityY(250);
-        this.player.anims.play('right', true);
-      }
-      else {
-        this.player.setVelocityY(0);
-      };
+        this.directionPlayer = "left"
+        }
+        else if (this.cursors.right.isDown || this.controller.right) { //sinon si la touche droite est appuyée
+          this.player.setVelocityX(250); //alors vitesse positive en X
+          this.player.anims.play('right', true); //et animation => droite
+          this.directionPlayer = "right"
+        }
+        else {
+          this.player.setVelocityX(0)
+        }
+        if (this.cursors.up.isDown || this.controller.up) {
+          this.player.setVelocityY(-250);
+          this.player.anims.play('left', true);
+          this.directionPlayer = "up"
+        }
+        else if (this.cursors.down.isDown || this.controller.down) {
+          this.player.setVelocityY(250);
+          this.player.anims.play('right', true);
+          this.directionPlayer="down"
+        }
+        else {
+          this.player.setVelocityY(0);
+        }
+        if((this.keyA.isDown)&&(this.bulleAirBool == true)&&(this.bulleAirCD == false)){
+          if(this.directionPlayer == "up"){
+            this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityY(-300);
+          }
+          if(this.directionPlayer == "down"){
+            this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityY(300);
+          }
+          if(this.directionPlayer == "left"){
+            this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityX(-300);
+          }
+          if(this.directionPlayer == "right"){
+            this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityX(300);
+          }
+          this.bulleAirCD = true;
+          this.time.delayedCall(500, this.cdBulle, [], this);
+        }
     }
 
     teleportationDonjon(){
@@ -137,4 +163,7 @@ class SceneMondeEntier extends Phaser.Scene {
     recuperationArgent(){
       this.argentTexte.setText('Perles: ' + argent); //met à jour l’affichage de l'argent
     };
+    cdBulle(){
+      this.bulleAirCD = false;
+    }
 }

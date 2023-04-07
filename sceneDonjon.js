@@ -4,9 +4,11 @@ class SceneDonjon extends Phaser.Scene {
       this.player;
       this.controller = false;
       this.tileset;
-      
+      this.bulleAirBool = false;
+      this.bulleAirCD = false;    
   }
   init(data){
+    this.bulleAirBool = data.bab;
   }
   preload(){
     //this.load.spritesheet('perso','assets/perso.png',
@@ -17,25 +19,30 @@ class SceneDonjon extends Phaser.Scene {
     this.load.image("transparent","assets/invisible.png");
     this.load.image("boutonNormal","assets/boubou.png");
     this.load.image("boutonPresser","assets/boubouPresser.png");
-    this.load.image("murCote","assets/murDJCote.png")
-    this.load.image("murFace","assets/murDJFace.png")
-    this.load.image("solVide","assets/solTrou.png")
+    this.load.image("murCote","assets/murDJCote.png");
+    this.load.image("murFace","assets/murDJFace.png");
+    this.load.image("solVide","assets/solTrou.png");
+    this.load.image("collierPowerUp","assets/collierBulle.png");
+    this.load.image("bulleImg","assets/bulleAir.png");
   }
 
   
   create(){
+    this.keyA =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.bulleAirCD = false;
+    this.directionPlayer = "down";
+
     // chargement de la carte
     this.carteDuNiveau = this.add.tilemap("cartedede");
 
     // chargement du jeu de tuiles
     this.tileset = this.carteDuNiveau.addTilesetImage("tileset_donjon","Phaser_tuilesdejeuDede");
 
-    //les caaaaalques (oskour)
+    //les calques
     this.calqueSolDonjon = this.carteDuNiveau.createLayer("sol",this.tileset);
     this.calqueMursDonjon = this.carteDuNiveau.createLayer("murs",this.tileset);
     this.calqueBoutonPresser = this.carteDuNiveau.createLayer("boutons",this.tileset);
-    // définition des tuiles de plateformes qui sont solides
-    // utilisation de la propriété estSolide
+
     this.calqueMursDonjon.setCollisionByProperty({ estSolide: true }); 
     
     //joueur :
@@ -144,7 +151,14 @@ class SceneDonjon extends Phaser.Scene {
     });
     this.physics.add.overlap(this.player,this.bobo2,this.pressionbouton2,null,this);
     
-    
+    //Collier power up bulle d'air
+    this.coco = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_collier = this.carteDuNiveau.getObjectLayer("collier");
+    this.calque_collier.objects.forEach(calque_collier => {
+      this.inutile = this.coco.create(calque_collier.x+32,calque_collier.y+32,"collierPowerUp"); 
+    });
+    this.physics.add.overlap(this.player,this.coco,this.powerUpDebloquer,null,this);
 
 
     //Porte sortie du donjon
@@ -156,6 +170,9 @@ class SceneDonjon extends Phaser.Scene {
     });
     this.physics.add.overlap(this.player,this.popoSortieDonjon,this.teleportationSortieDonjon,null,this);
 
+    //Power Up bulle d'air
+    this.bubulle = this.physics.add.group();
+    this.physics.add.collider(this.bubulle, this.bobo2,this.pressionbouton2,null,this);
 
     };
 
@@ -165,10 +182,12 @@ class SceneDonjon extends Phaser.Scene {
     if (this.cursors.left.isDown || this.controller.left) { //si la touche gauche est appuyée
     this.player.setVelocityX(-250); //alors vitesse négative en X
     this.player.anims.play('left', true); //et animation => gauche
+    this.directionPlayer = "left"
     }
     else if (this.cursors.right.isDown || this.controller.right) { //sinon si la touche droite est appuyée
       this.player.setVelocityX(250); //alors vitesse positive en X
       this.player.anims.play('right', true); //et animation => droite
+      this.directionPlayer = "right"
     }
     else {
       this.player.setVelocityX(0)
@@ -176,17 +195,37 @@ class SceneDonjon extends Phaser.Scene {
     if (this.cursors.up.isDown || this.controller.up) {
       this.player.setVelocityY(-250);
       this.player.anims.play('left', true);
+      this.directionPlayer = "up"
     }
     else if (this.cursors.down.isDown || this.controller.down) {
       this.player.setVelocityY(250);
       this.player.anims.play('right', true);
+      this.directionPlayer="down"
     }
     else {
       this.player.setVelocityY(0);
     }
+    if((this.keyA.isDown)&&(this.bulleAirBool == true)&&(this.bulleAirCD == false)){
+      if(this.directionPlayer == "up"){
+        this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityY(-300);
+      }
+      if(this.directionPlayer == "down"){
+        this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityY(300);
+      }
+      if(this.directionPlayer == "left"){
+        this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityX(-300);
+      }
+      if(this.directionPlayer == "right"){
+        this.bubulle.create(this.player.x, this.player.y, "bulleImg").body.setVelocityX(300);
+      }
+      this.bulleAirCD = true;
+      this.time.delayedCall(500, this.cdBulle, [], this);
+    }
   };
+
+
   teleportationSortieDonjon(){
-    this.scene.start('SceneMondeEntier')
+    this.scene.start('SceneMondeEntier',{bulleAirBool : this.bulleAirBool})
   }
   pressionbouton1(player){
     this.bobo1.setVisible(false);
@@ -201,6 +240,14 @@ class SceneDonjon extends Phaser.Scene {
     this.mumu2.setVisible(false);
     this.physics.world.removeCollider(this.collisionpont1)
     this.ponpon1.setVisible(false);
+    this.bubulle.setVisible(false);
   }
 
+  powerUpDebloquer(){
+    this.coco.setVisible(false);
+    this.bulleAirBool = true;
+  }
+  cdBulle(){
+    this.bulleAirCD = false;
+  }
 }
