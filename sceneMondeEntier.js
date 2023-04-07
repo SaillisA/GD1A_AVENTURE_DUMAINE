@@ -21,8 +21,8 @@ class SceneMondeEntier extends Phaser.Scene {
       this.load.image("Phaser_tuilesdejeu","assets/Tileset.png");
       this.load.tilemapTiledJSON("carte","assets/carteNiveau.json");
       this.load.image("transparent","assets/invisible.png");
-      this.load.image("collierPowerUp","assets/collierBulle.png");
       this.load.image("bulleImg","assets/bulleAir.png");
+      this.load.image("dechImg","assets/dechainement.png");
     }
 
     //le club des variables
@@ -32,6 +32,8 @@ class SceneMondeEntier extends Phaser.Scene {
       this.keyA =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
       this.bulleAirCD = false;
       this.directionPlayer = "down";
+      this.keyZ =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+      this.bulleAirCD = false;
 
         // chargement de la carte
         this.carteDuNiveau = this.add.tilemap("carte");
@@ -104,7 +106,10 @@ class SceneMondeEntier extends Phaser.Scene {
 
         //Power Up bulle d'air
         this.bubulle = this.physics.add.group();
-        this.physics.add.collider(this.bubulle, this.bobo2,this.pressionbouton2,null,this);
+        //this.physics.add.collider(this.bubulle, ,this.(),null,this);
+
+        this.dedech = this.physics.add.group();
+        //this.physics.add.collider(this.dedech,this.(),null,this);
 
       };
 
@@ -151,6 +156,7 @@ class SceneMondeEntier extends Phaser.Scene {
           this.bulleAirCD = true;
           this.time.delayedCall(500, this.cdBulle, [], this);
         }
+
     }
 
     teleportationDonjon(){
