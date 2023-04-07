@@ -8,6 +8,7 @@ src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
 </head>
 
 <body>
+<script src="firstScreen.js"></script>
 <script src="sceneMondeEntier.js"></script>
 <script src="sceneBoutique.js"></script>
 <script src="sceneDonjon.js"></script>
@@ -27,7 +28,7 @@ src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
         }},
         height: 800,
         input:{gamepad : true},
-        scene: [SceneMondeEntier,SceneDonjon,SceneBoutique/*,SceneDeepOceanBoss*/]
+        scene: [firstScreen,SceneMondeEntier,SceneDonjon,SceneBoutique/*,SceneDeepOceanBoss*/]
     };
     new Phaser.Game(config);
 

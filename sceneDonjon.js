@@ -8,7 +8,7 @@ class SceneDonjon extends Phaser.Scene {
       this.bulleAirCD = false;    
   }
   init(data){
-    this.bulleAirBool = data.bab;
+    this.bulleAirBool = data.bulleAirBool;
   }
   preload(){
     //this.load.spritesheet('perso','assets/perso.png',
@@ -231,8 +231,6 @@ class SceneDonjon extends Phaser.Scene {
     this.bobo1.setVisible(false);
     this.physics.world.removeCollider(this.collisionmur1)
     this.mumu1.setVisible(false);
-    
-
   }
   pressionbouton2(player){
     this.bobo2.setVisible(false);
