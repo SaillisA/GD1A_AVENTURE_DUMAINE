@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
+    "activeFile": "donjonCarteTiled.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
@@ -18,8 +18,8 @@
             "scale": 0.0625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 5168,
-                "y": 8344
+                "x": 6720,
+                "y": 5912
             }
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx#Tileset": {
@@ -38,10 +38,10 @@
         },
         "donjonCarteTiled.tmx": {
             "scale": 0.5,
-            "selectedLayer": 17,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 1018,
-                "y": 616
+                "x": 1178,
+                "y": 593
             }
         },
         "donjonCarteTiled.tmx#tileset_donjon": {
@@ -56,20 +56,20 @@
     "last.imagePath": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/Donjon",
     "lastUsedTilesetExportFilter": "Fichiers de jeu de tuiles JSON (*.tsj *.json)",
     "map.height": 50,
-    "map.lastUsedExportFilter": "Tous les Fichiers (*)",
+    "map.lastUsedExportFilter": "Fichiers de carte JSON (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "map.width": 50,
     "openFiles": [
-        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx"
+        "donjonCarteTiled.tmx"
     ],
     "project": "donjonCarte.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "donjonCarteTiled.tmx",
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
-        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/ShopVillage/magasinCarteTiled.tmx",
-        "donjonCarteTiled.tmx"
+        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/ShopVillage/magasinCarteTiled.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {

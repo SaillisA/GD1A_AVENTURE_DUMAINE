@@ -21,6 +21,7 @@ class SceneDonjon extends Phaser.Scene {
     this.load.image("boutonPresser","assets/boubouPresser.png");
     this.load.image("murCote","assets/murDJCote.png");
     this.load.image("murFace","assets/murDJFace.png");
+    this.load.image("murFace3","assets/murDJFace3.png");
     this.load.image("solVide","assets/solTrou.png");
     this.load.image("collierPowerUp","assets/collierBulle.png");
     this.load.image("bulleImg","assets/bulleAir.png");
@@ -69,14 +70,14 @@ class SceneDonjon extends Phaser.Scene {
     });*/
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.physics.world.setBounds(0, 0, 1856, 1216);
+    this.physics.world.setBounds(0, 0, 1984, 1216);
 
     //  ajout du champs de la caméra de taille identique à celle du monde
-    this.cameras.main.setBounds(0, 0, 1856, 1216);
-
+    this.cameras.main.setBounds(0, 0, 1984, 1216);
+    //11 10
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(this.player);
-    this.cameras.main.setZoom(0.8);
+    this.cameras.main.setZoom(1.5);
 
     //coliders
     this.physics.add.collider(this.player,this.calqueMursDonjon);
@@ -98,7 +99,7 @@ class SceneDonjon extends Phaser.Scene {
       this.inutile = this.mumu2.create(calque_mur2.x+64,calque_mur2.y+32,"murFace"); 
     });
     this.collisionmur2 = this.physics.add.collider(this.player,this.mumu2,null,null,this);
-    //Mur 2murQuiBouge
+    //Mur 3murQuiBouge
     this.mumu3 = this.physics.add.group({immovable : true ,allowGravity : false});
 
     this.calque_mur3 = this.carteDuNiveau.getObjectLayer("murQuiBouge3");
@@ -106,6 +107,18 @@ class SceneDonjon extends Phaser.Scene {
       this.inutile = this.mumu3.create(calque_mur3.x+32,calque_mur3.y+64,"murCote"); 
     });
     this.collisionmur3 = this.physics.add.collider(this.player,this.mumu3,null,null,this);
+    //Mur 4murQuiBouge
+    this.mumu4 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_mur4 = this.carteDuNiveau.getObjectLayer("murQuiBouge4");
+    this.calque_mur4.objects.forEach(calque_mur4 => {
+      this.inutile = this.mumu4.create(calque_mur4.x+96,calque_mur4.y+32,"murFace3"); 
+    });
+    this.collisionmur4 = this.physics.add.collider(this.player,this.mumu4,null,null,this);
+    //on le désactive car il sera réactivé quand le joueur prendra le power up
+    this.physics.world.removeCollider(this.collisionmur4)
+    this.mumu4.setVisible(false);
+
 
     //PONTS
     //Pont1
@@ -150,7 +163,17 @@ class SceneDonjon extends Phaser.Scene {
       this.inutile = this.bobo2.create(calque_bouton2.x+32,calque_bouton2.y+32,"boutonNormal"); 
     });
     this.physics.add.overlap(this.player,this.bobo2,this.pressionbouton2,null,this);
+    //Bouton salle3
+    this.bobo3 = this.physics.add.group({immovable : true ,allowGravity : false});
+
+    this.calque_bouton3 = this.carteDuNiveau.getObjectLayer("bouton3");
+    this.calque_bouton3.objects.forEach(calque_bouton3 => {
+      this.inutile = this.bobo3.create(calque_bouton3.x+32,calque_bouton3.y+32,"boutonNormal"); 
+    });
+    this.physics.add.overlap(this.player,this.bobo3,this.pressionbouton3,null,this);
     
+
+
     //Collier power up bulle d'air
     this.coco = this.physics.add.group({immovable : true ,allowGravity : false});
 
@@ -173,6 +196,7 @@ class SceneDonjon extends Phaser.Scene {
     //Power Up bulle d'air
     this.bubulle = this.physics.add.group();
     this.physics.add.collider(this.bubulle, this.bobo2,this.pressionbouton2,null,this);
+    this.physics.add.collider(this.bubulle, this.bobo3,this.pressionbouton3,null,this);
 
     };
 
@@ -240,10 +264,22 @@ class SceneDonjon extends Phaser.Scene {
     this.ponpon1.setVisible(false);
     this.bubulle.setVisible(false);
   }
+  pressionbouton3(player){
+    this.bobo3.setVisible(false);
+    this.physics.world.removeCollider(this.collisionmur3)
+    this.mumu3.setVisible(false);
+    this.physics.world.removeCollider(this.collisionpont2)
+    this.ponpon2.setVisible(false);
+    this.physics.world.removeCollider(this.collisionmur4)
+    this.mumu4.setVisible(false);
+    this.bubulle.setVisible(false);
 
+  }
   powerUpDebloquer(){
     this.coco.setVisible(false);
     this.bulleAirBool = true;
+    this.physics.world.addCollider(this.collisionmur4)
+    this.mumu4.setVisible(true);
   }
   cdBulle(){
     this.bulleAirCD = false;
