@@ -116,12 +116,10 @@ class SceneMondeEntier extends Phaser.Scene {
     update(){
       if (this.cursors.left.isDown || this.controller.left) { //si la touche gauche est appuyée
         this.player.setVelocityX(-250); //alors vitesse négative en X
-        this.player.anims.play('left', true); //et animation => gauche
         this.directionPlayer = "left"
         }
         else if (this.cursors.right.isDown || this.controller.right) { //sinon si la touche droite est appuyée
           this.player.setVelocityX(250); //alors vitesse positive en X
-          this.player.anims.play('right', true); //et animation => droite
           this.directionPlayer = "right"
         }
         else {
@@ -129,12 +127,10 @@ class SceneMondeEntier extends Phaser.Scene {
         }
         if (this.cursors.up.isDown || this.controller.up) {
           this.player.setVelocityY(-250);
-          this.player.anims.play('left', true);
           this.directionPlayer = "up"
         }
         else if (this.cursors.down.isDown || this.controller.down) {
           this.player.setVelocityY(250);
-          this.player.anims.play('right', true);
           this.directionPlayer="down"
         }
         else {
@@ -169,7 +165,25 @@ class SceneMondeEntier extends Phaser.Scene {
     recuperationArgent(){
       this.argentTexte.setText('Perles: ' + argent); //met à jour l’affichage de l'argent
     };
+    perdPv(){
+      this.bulleAirBool = this.bulleAirBool -1;
+      if(this.pvJoueur == 4){
+  
+      }
+      if(this.pvJoueur == 3){
+        
+      }
+      if(this.pvJoueur == 2){
+        
+      }
+      if(this.pvJoueur == 1){
+        
+      }
+      if(this.pvJoueur == 0){
+        this.scene.start('GameOver')
+      }
+    };
     cdBulle(){
       this.bulleAirCD = false;
-    }
+    };
 }

@@ -4,11 +4,12 @@ class SceneDonjon extends Phaser.Scene {
       this.player;
       this.controller = false;
       this.tileset;
-      this.bulleAirBool = false;
-      this.bulleAirCD = false;    
+      this.bulleAirCD = false;
+      this.bulleAirBool = false;    
   }
   init(data){
     this.bulleAirBool = data.bulleAirBool;
+    this.pvJoueur = data.pvJoueur;
   }
   preload(){
     //this.load.spritesheet('perso','assets/perso.png',
@@ -25,6 +26,8 @@ class SceneDonjon extends Phaser.Scene {
     this.load.image("solVide","assets/solTrou.png");
     this.load.image("collierPowerUp","assets/collierBulle.png");
     this.load.image("bulleImg","assets/bulleAir.png");
+    this.load.image("mons1","assets/monstre1.png");
+    this.load.image("mons2","assets/monstre2.png");
   }
 
   
@@ -50,25 +53,6 @@ class SceneDonjon extends Phaser.Scene {
     this.player = this.physics.add.sprite(928, 1050, 'perso');
     this.player.setSize(40, 90)
 
-    /*this.player.setCollideWorldBounds(true);
-    this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('perso', {start:0,end:3}),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'perso', frame: 4 } ],
-        frameRate: 20
-    });
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('perso', {start:5,end:8}),
-        frameRate: 10,
-        repeat: -1
-    });*/
-
     this.cursors = this.input.keyboard.createCursorKeys();
     this.physics.world.setBounds(0, 0, 1984, 1216);
 
@@ -81,6 +65,9 @@ class SceneDonjon extends Phaser.Scene {
 
     //coliders
     this.physics.add.collider(this.player,this.calqueMursDonjon);
+
+
+
 
     //LES MURS QUI BOUGENT
     //Mur 1murQuiBouge
@@ -120,6 +107,7 @@ class SceneDonjon extends Phaser.Scene {
     this.mumu4.setVisible(false);
 
 
+
     //PONTS
     //Pont1
     this.ponpon1 = this.physics.add.group({immovable : true ,allowGravity : false});
@@ -145,6 +133,8 @@ class SceneDonjon extends Phaser.Scene {
       this.inutile = this.ponpon3.create(calque_pont3.x+64,calque_pont3.y+32,"solVide"); 
     });
     this.collisionpont3 = this.physics.add.collider(this.player,this.ponpon3,null,null,this);
+
+
 
     //LES BOUTONS
     //Bouton salle1
@@ -172,7 +162,14 @@ class SceneDonjon extends Phaser.Scene {
     });
     this.physics.add.overlap(this.player,this.bobo3,this.pressionbouton3,null,this);
     
+    //mob
+    this.monmon = this.physics.add.group({immovable : true ,allowGravity : false});
 
+    this.calque_monstre = this.carteDuNiveau.getObjectLayer("mob");
+    this.calque_monstre.objects.forEach(calque_monstre => {
+      this.inutile = this.monmon.create(calque_monstre.x+32,calque_monstre.y+32,"mons2"); 
+    });
+    this.physics.add.overlap(this.player,this.monmon,this.pressionbouton3,null,this);
 
     //Collier power up bulle d'air
     this.coco = this.physics.add.group({immovable : true ,allowGravity : false});
@@ -183,7 +180,6 @@ class SceneDonjon extends Phaser.Scene {
     });
     this.physics.add.overlap(this.player,this.coco,this.powerUpDebloquer,null,this);
 
-
     //Porte sortie du donjon
     this.popoSortieDonjon = this.physics.add.group({immovable : true ,allowGravity : false});
         
@@ -193,10 +189,11 @@ class SceneDonjon extends Phaser.Scene {
     });
     this.physics.add.overlap(this.player,this.popoSortieDonjon,this.teleportationSortieDonjon,null,this);
 
-    //Power Up bulle d'air
+    //Power Up bulle d'air et ses collisions
     this.bubulle = this.physics.add.group();
     this.physics.add.collider(this.bubulle, this.bobo2,this.pressionbouton2,null,this);
     this.physics.add.collider(this.bubulle, this.bobo3,this.pressionbouton3,null,this);
+    this.physics.add.collider(this.bubulle, this.monmon,this.monstreMeurt,null,this);
 
     };
 
@@ -205,12 +202,10 @@ class SceneDonjon extends Phaser.Scene {
   update(){
     if (this.cursors.left.isDown || this.controller.left) { //si la touche gauche est appuyée
     this.player.setVelocityX(-250); //alors vitesse négative en X
-    this.player.anims.play('left', true); //et animation => gauche
     this.directionPlayer = "left"
     }
     else if (this.cursors.right.isDown || this.controller.right) { //sinon si la touche droite est appuyée
       this.player.setVelocityX(250); //alors vitesse positive en X
-      this.player.anims.play('right', true); //et animation => droite
       this.directionPlayer = "right"
     }
     else {
@@ -218,12 +213,10 @@ class SceneDonjon extends Phaser.Scene {
     }
     if (this.cursors.up.isDown || this.controller.up) {
       this.player.setVelocityY(-250);
-      this.player.anims.play('left', true);
       this.directionPlayer = "up"
     }
     else if (this.cursors.down.isDown || this.controller.down) {
       this.player.setVelocityY(250);
-      this.player.anims.play('right', true);
       this.directionPlayer="down"
     }
     else {
@@ -246,10 +239,14 @@ class SceneDonjon extends Phaser.Scene {
       this.time.delayedCall(500, this.cdBulle, [], this);
     }
   };
-
-
+  
+  monstreMeurt(player){
+    this.monmon.setVisible(false)
+    this.physics.world.removeCollider(this.monmon)
+    this.bubulle.setVisible(false)
+  }
   teleportationSortieDonjon(){
-    this.scene.start('SceneMondeEntier',{bulleAirBool : this.bulleAirBool})
+    this.scene.start('SceneMondeEntier',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur})
   }
   pressionbouton1(player){
     this.bobo1.setVisible(false);

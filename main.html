@@ -13,6 +13,7 @@ src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
 <script src="sceneBoutique.js"></script>
 <script src="sceneDonjon.js"></script>
 <script src="sceneDeepOceanBoss.js"></script>
+<script src="GameOver.js"></script>
 <script type="text/javascript">
 
 
@@ -28,7 +29,8 @@ src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
         }},
         height: 800,
         input:{gamepad : true},
-        scene: [firstScreen,SceneMondeEntier,SceneDonjon,SceneBoutique/*,SceneDeepOceanBoss*/]
+        pixelArt : true,
+        scene: [firstScreen,SceneMondeEntier,SceneDonjon,SceneBoutique/*,SceneDeepOceanBoss*/,GameOver]
     };
     new Phaser.Game(config);
 
