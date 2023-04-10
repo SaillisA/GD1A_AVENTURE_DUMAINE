@@ -10,6 +10,10 @@ class SceneDonjon extends Phaser.Scene {
   init(data){
     this.bulleAirBool = data.bulleAirBool;
     this.pvJoueur = data.pvJoueur;
+    this.coordoneeX = data.coordoneeX;
+    this.coordoneeY = data.coordoneeY;
+    this.perlesJoueur = data.perlesJoueur
+    this.dechBool = data.dechBool
   }
   preload(){
     //this.load.spritesheet('perso','assets/perso.png',
@@ -246,7 +250,9 @@ class SceneDonjon extends Phaser.Scene {
     this.bubulle.setVisible(false)
   }
   teleportationSortieDonjon(){
-    this.scene.start('SceneMondeEntier',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur})
+    this.coordoneeX = 2176
+    this.coordoneeY =10557
+    this.scene.start('SceneMondeEntier',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur,coordoneeX:this.coordoneeX,coordoneeY : this.coordoneeY,perlesJoueur : this.perlesJoueur,dechBool: data.dechBool})
   }
   pressionbouton1(player){
     this.bobo1.setVisible(false);

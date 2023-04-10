@@ -6,20 +6,24 @@
     "activeFile": "donjonCarteTiled.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.33,
             "scaleInEditor": 1
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/assets/tileset_shop.tsx": {
             "scaleInDock": 1
         },
+        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/Tileset.tsx": {
+            "scaleInDock": 1
+        },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx": {
             "scale": 0.0625,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 6720,
-                "y": 5912
+                "x": 3624,
+                "y": 9568
             }
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx#Tileset": {
@@ -40,8 +44,8 @@
             "scale": 0.25,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 1310,
-                "y": 246
+                "x": 994,
+                "y": 606
             }
         },
         "donjonCarteTiled.tmx#tileset_donjon": {
@@ -52,7 +56,7 @@
         }
     },
     "last.exportedFilePath": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/assets",
-    "last.externalTilesetPath": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/assets",
+    "last.externalTilesetPath": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier",
     "last.imagePath": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/Donjon",
     "lastUsedTilesetExportFilter": "Fichiers de jeu de tuiles JSON (*.tsj *.json)",
     "map.height": 50,
@@ -67,8 +71,8 @@
     "project": "donjonCarte.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "donjonCarteTiled.tmx",
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
+        "donjonCarteTiled.tmx",
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/ShopVillage/magasinCarteTiled.tmx"
     ],
     "tileset.embedInMap": true,

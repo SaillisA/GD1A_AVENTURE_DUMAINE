@@ -1,9 +1,16 @@
 class firstScreen extends Phaser.Scene {
     constructor(){
         super("firstScreen")
-        
+        this.bulleAirBool = false;
+        this.pvJoueur = 4;
+        this.coordoneeX =7680;
+        this.coordoneeY =7040;
+        this.perlesJoueur = 0;
+
     }
     init(data){
+        {
+    }
     }
     preload(){
         this.load.image('eau1','assets/ecran/m1.png');
@@ -50,7 +57,7 @@ class firstScreen extends Phaser.Scene {
             this.time.delayedCall(timeTime, () => {this.add.image(0,0,this.listeTroBelle[step]).setOrigin(0,0)} , [], this);
             timeTime += 100;
             if(step == 13){
-                this.time.delayedCall(timeTime, () => {this.scene.start("SceneMondeEntier")},[],this);
+                this.time.delayedCall(timeTime, () => {this.scene.start("SceneMondeEntier",{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur,coordoneeX:this.coordoneeX,coordoneeY : this.coordoneeY, perlesJoueur : this.perlesJoueur})},[],this);
             }
         }
         

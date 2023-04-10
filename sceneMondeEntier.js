@@ -9,7 +9,12 @@ class SceneMondeEntier extends Phaser.Scene {
         
     }
     init(data){
-      this.bulleAirBool = data.bulleAirBool
+      this.bulleAirBool = data.bulleAirBool;
+      this.pvJoueur = data.pvJoueur;
+      this.coordoneeX = data.coordoneeX;
+      this.coordoneeY = data.coordoneeY;
+      this.perlesJoueur = data.perlesJoueur
+      this.dechBool = data.dechBool
     }
 
 
@@ -24,9 +29,6 @@ class SceneMondeEntier extends Phaser.Scene {
       this.load.image("bulleImg","assets/bulleAir.png");
       this.load.image("dechImg","assets/dechainement.png");
     }
-
-    //le club des variables
-    
 
     create(){
       this.keyA =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -44,7 +46,6 @@ class SceneMondeEntier extends Phaser.Scene {
         //les caaaaalques (oskour)
         this.calqueSolMondo = this.carteDuNiveau.createLayer("sol",this.tileset);
         this.calqueHouseVivi = this.carteDuNiveau.createLayer("maisonsVillage",this.tileset);
-        this.calqueBat = this.carteDuNiveau.createLayer("bateau",this.tileset);
         this.calqueHab = this.carteDuNiveau.createLayer("habitants",this.tileset);
         this.calqueMursMondo = this.carteDuNiveau.createLayer("murs",this.tileset);
 
@@ -55,29 +56,12 @@ class SceneMondeEntier extends Phaser.Scene {
         //calque_plateformes.setCollisionByProperty({ estSolide: true }); 
 
         //joueur :
-        this.player = this.physics.add.sprite(2252, 11617, 'perso');
-        /*this.player.setCollideWorldBounds(true);
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('perso', {start:0,end:3}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'turn',
-            frames: [ { key: 'perso', frame: 4 } ],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('perso', {start:5,end:8}),
-            frameRate: 10,
-            repeat: -1
-        });*/
+        this.player = this.physics.add.sprite(this.coordoneeX, this.coordoneeY, 'perso');
+        this.player.setSize(40, 90)
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.physics.world.setBounds(0, 0, 13440, 13440);
+        this.physics.world.setBounds(0, 0, 13440, 11840);
         //  ajout du champs de la caméra de taille identique à celle du monde
-        this.cameras.main.setBounds(0, 0, 13440, 13440);
+        this.cameras.main.setBounds(0, 0, 13440, 11840);
         // ancrage de la caméra sur le joueur
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setZoom(0.8);
@@ -156,11 +140,11 @@ class SceneMondeEntier extends Phaser.Scene {
     }
 
     teleportationDonjon(){
-      this.scene.start('SceneDonjon')
+      this.scene.start('SceneDonjon',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur,coordoneeX:this.coordoneeX,coordoneeY : this.coordoneeY,perlesJoueur : this.perlesJoueur,dechBool: data.dechBool})
 
     };
     teleportationBoutique(){
-      this.scene.start('SceneBoutique')
+      this.scene.start('SceneBoutique',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur,coordoneeX:this.coordoneeX,coordoneeY : this.coordoneeY,perlesJoueur : this.perlesJoueur,dechBool: data.dechBool})
     };
     recuperationArgent(){
       this.argentTexte.setText('Perles: ' + argent); //met à jour l’affichage de l'argent
