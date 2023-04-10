@@ -28,6 +28,8 @@ class SceneMondeEntier extends Phaser.Scene {
       this.load.image("transparent","assets/invisible.png");
       this.load.image("bulleImg","assets/bulleAir.png");
       this.load.image("dechImg","assets/dechainement.png");
+      this.load.image("cof","assets/coffre.png");
+      this.load.image("bossGif","assets/boss.gif")
     }
 
     create(){
@@ -78,6 +80,15 @@ class SceneMondeEntier extends Phaser.Scene {
           this.inutile = this.popoDonjon.create(calque_porteDonjon.x+64,calque_porteDonjon.y+32,"transparent"); 
         });
         this.physics.add.overlap(this.player,this.popoDonjon,this.teleportationDonjon,null,this);
+        
+        //coffres
+        this.cocoffre = this.physics.add.group({immovable : true ,allowGravity : false});
+        
+        this.calque_coffres = this.carteDuNiveau.getObjectLayer("coffre");
+        this.calque_coffres.objects.forEach(calque_coffres => {
+          this.inutile = this.cocoffre.create(calque_coffres.x+64,calque_coffres.y+32,"transparent"); 
+        });
+        this.physics.add.overlap(this.player,this.cocoffre,this.argentRecup,null,this);
 
         //Porte accès boutique
         this.popoBoutique = this.physics.add.group({immovable : true ,allowGravity : false});
@@ -138,9 +149,11 @@ class SceneMondeEntier extends Phaser.Scene {
         }
 
     }
-
+    argentRecup(){
+      this.perlesJoueur += 15;
+    }
     teleportationDonjon(){
-      this.scene.start('SceneDonjon',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur,coordoneeX:this.coordoneeX,coordoneeY : this.coordoneeY,perlesJoueur : this.perlesJoueur,dechBool: data.dechBool})
+      this.scene.start('SceneDonjon',{bulleAirBool : this.bulleAirBool,pvJoueur : this.pvJoueur,coordoneeX:this.coordoneeX,coordoneeY : this.coordoneeY,perlesJoueur : this.perlesJoueur,dechBool: this.dechBool})
 
     };
     teleportationBoutique(){
@@ -152,7 +165,7 @@ class SceneMondeEntier extends Phaser.Scene {
     perdPv(){
       this.bulleAirBool = this.bulleAirBool -1;
       if(this.pvJoueur == 4){
-  
+        
       }
       if(this.pvJoueur == 3){
         

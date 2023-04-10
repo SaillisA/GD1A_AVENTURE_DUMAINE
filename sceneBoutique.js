@@ -22,6 +22,7 @@ class SceneBoutique extends Phaser.Scene {
       this.load.tilemapTiledJSON("carteboubou","assets/carteBoutique.json");
       this.load.image("transparent","assets/invisible.png");
       this.load.image("vendeurImg","assets/vendeur.png")
+      
     }
     //le club des variables
     

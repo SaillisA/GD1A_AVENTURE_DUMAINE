@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "donjonCarteTiled.tmx",
+    "activeFile": "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
@@ -20,32 +20,33 @@
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx": {
             "scale": 0.0625,
-            "selectedLayer": 2,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 3624,
-                "y": 9568
+                "x": 6712,
+                "y": 10000
             }
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx#Tileset": {
-            "scaleInDock": 0.33
+            "scaleInDock": 0.33,
+            "scaleInEditor": 0.12
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/ShopVillage/magasinCarteTiled.tmx": {
-            "scale": 1,
+            "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 560,
-                "y": 1433
+                "x": 512.6666666666666,
+                "y": 798.6666666666665
             }
         },
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/ShopVillage/magasinCarteTiled.tmx#tileset_shop": {
             "scaleInDock": 1
         },
         "donjonCarteTiled.tmx": {
-            "scale": 0.25,
+            "scale": 0.33,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 994,
-                "y": 606
+                "x": 989.3939393939394,
+                "y": 609.0909090909091
             }
         },
         "donjonCarteTiled.tmx#tileset_donjon": {
@@ -66,13 +67,14 @@
     "map.tileWidth": 64,
     "map.width": 50,
     "openFiles": [
+        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
         "donjonCarteTiled.tmx"
     ],
     "project": "donjonCarte.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
         "donjonCarteTiled.tmx",
+        "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/MondeEntier/map.tmx",
         "C:/Users/lisad/OneDrive/Bureau/GD1A_AVENTURE_DUMAINE/zeldaTiled/ShopVillage/magasinCarteTiled.tmx"
     ],
     "tileset.embedInMap": true,
